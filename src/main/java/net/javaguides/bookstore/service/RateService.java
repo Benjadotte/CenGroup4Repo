@@ -5,6 +5,7 @@ import org.springframework.web.client.RestTemplate;
 
 import net.javaguides.bookstore.model.BookRating;
 import net.javaguides.bookstore.repository.RateRepository;
+import net.javaguides.bookstore.web.dto.RateController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class RateService {
 
 
     public List<BookRating> getAllRatings() {
-        return RateRepository.findAll();
+        return RateRepository.findAll(); //Need to change this
     }
 
     public void deleteRating (String id) {
@@ -53,11 +54,12 @@ public class RateService {
 
         // if no ratings already exist for this user, go ahead and add the new rating (user/book were validated earlier)
         if (repositoryResults.isPresent() == false) {
-            RateRepository.insert(rating);
+            RateRepository.insert(rating); //Insert in repo
         }
 
         // some ratings do exist by this user
         else {
+
 
             // check that there is not already an existing rating by this user for the specified book
             List<BookRating> queryResultsForUser = repositoryResults.get();
