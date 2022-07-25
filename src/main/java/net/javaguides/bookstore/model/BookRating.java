@@ -1,11 +1,10 @@
 package net.javaguides.bookstore.model;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
-import net.javaguides.bookstore.model.BookDetails;
+
+import net.javaguides.bookstore.service.RateService;
+import org.springframework.stereotype.Indexed;
 
 import java.util.Date;
 import java.util.ArrayList;
