@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import net.javaguides.bookstore.model.BookDetails;
+import net.javaguides.bookstore.service.RateService;
 
 import java.util.Date;
 import java.util.ArrayList;
