@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 
 
 import net.javaguides.bookstore.service.RateService;
+import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.stereotype.Indexed;
 
 import java.util.Date;
@@ -23,11 +24,9 @@ public class BookRating {
 @Id
 private String id;
 
-@Indexed
 @Field("userid")
 private String userid;
 
-@Indexed
 @Field("bookid")
 private String bookid;
 
