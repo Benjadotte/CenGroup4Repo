@@ -1,6 +1,5 @@
 package net.javaguides.bookstore.repository;
 import net.javaguides.bookstore.model.BookRating;
-import net.javaguides.bookstore.service.RateService;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,7 +22,11 @@ public interface RateRepository  extends JpaRepository<BookRating, String>{
 
 
     @Query("{'bookid': ?0}")
-    Optional<List<BookRating>> findByBookId(String bookid);
+    static
+    Optional<List<BookRating>> findByBookId(String bookid) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
     //.
 }

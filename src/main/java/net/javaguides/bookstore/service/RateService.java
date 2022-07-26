@@ -78,7 +78,8 @@ public class RateService {
             // rating for this book by this user already exists, so throw error
             // PUT API should be used to update instead of insert
             else {
-                throw new RuntimeException(String.format("Found Existing Rating for Book ID %s by User ID %s", rating.getBookid(), rating.getID()));
+                throw new RuntimeException(String.format("Found Existing Rating for Book ID %s by User ID %s", rating.getBookid()
+                        , rating.getID()));
             }
         }
     }
@@ -112,6 +113,61 @@ public class RateService {
     -Must be able to retrieve a list of ratings and comments sorted by highest rating 
     -Must be able to retrieve the average rating for a book
  */
+
+public List<BookRating> getRatingsByUser(String userId) {
+
+    // validate the user through a call to the User Controller
+    if (!isUserValid(userId)) {
+        throw new RuntimeException(String.format("User with ID %s is invalid!", userId));
+    }
+
+    return RateRepository.findByUserId(userId).orElseThrow(() -> new RuntimeException(
+            String.format("Cannot find Ratings by User %s", userId)
+    )
+  );
+}
+
+public List<BookRating> getRatingsByBook(String bookId) {
+
+    // validate the book through a call to the Book Controller
+    if (!isBookValid(bookId)) {
+        throw new RuntimeException(String.format("Book with ID %s is invalid!", bookId));
+    }
+
+    return RateRepository.findByBookId(bookId).orElseThrow(() -> new RuntimeException(
+            String.format("Cannot find Ratings for Book %s", bookId)
+    )
+  );
+}
+
+public float getAverageRating(String bookid) {
+    // validation of bookid done in getRatingsByBook method
+
+    List<BookRating> allRatingsByBook = getRatingsByBook(bookid);
+    long sum = 0;
+
+    for (BookRating r : allRatingsByBook) {
+        sum += r.getValue();
+    }
+
+    return sum / (float) allRatingsByBook.size();
+}
+
+public List<BookRating> getRatingsByBookSortedDes(String bookid) {
+    return null;
+}
+
+public List<BookRating> getRatingsByBookSortedAsc(String bookid) {
+    return null;
+}
+
+public List<BookRating> getRatingsSortedAsc() {
+    return null;
+}
+
+public List<BookRating> getRatingsSortedDes() {
+    return null;
+}
 
  
 
