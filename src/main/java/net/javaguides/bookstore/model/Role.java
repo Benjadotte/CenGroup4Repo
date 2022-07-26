@@ -42,4 +42,8 @@ public class Role {
                 ", name='" + name + '\'' +
                 '}';
     }
+
+    public enum Genre {
+        FICTION, NON_FICTION, DRAMA, HORROR, MISC
+    }
 }
