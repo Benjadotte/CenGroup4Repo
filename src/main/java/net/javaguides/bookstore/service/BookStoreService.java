@@ -13,9 +13,11 @@ import net.javaguides.bookstore.constraint.BookNotFoundException;
 import net.javaguides.bookstore.model.BookDetails;
 import net.javaguides.bookstore.repository.BookStoreRepo;
 
+
 import org.aspectj.apache.bcel.Repository;
 import org.springframework.data.domain.Sort;
-
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
 
 @Service
@@ -49,31 +51,63 @@ public class BookStoreService
     public BookDetails addBookDetails(BookDetails details)
     {
         details.setBookCode(UUID.randomUUID().toString());
+        return ((CrudRepository<BookDetails, String>) bookStoreRepo).save(details);
+    }
+    /*
+
+    public BookDetails addBookDetails(BookDetails details)
+    {
+        details.setBookCode(UUID.randomUUID().toString());
         return bookStoreRepo.save(details);
     }
 
 
+    
+    */ 
 
+
+    public List<BookDetails> findALLBooks()
+    {
+        return ((JpaRepository<BookDetails, String>) bookStoreRepo).findAll();
+    }
+     /*
     public List<BookDetails> findALLBooks()
     {
         return bookStoreRepo.findAll();
     }
 
+    
+    */ 
 
 
     public BookDetails updateBookDetails(BookDetails details)
     {
+        return ((CrudRepository<BookDetails, String>) bookStoreRepo).save(details);
+
+    }
+    /*
+
+   public BookDetails updateBookDetails(BookDetails details)
+    {
         return bookStoreRepo.save(details);
 
     }
-
+    
+    */ 
 
  
     public BookDetails findBookDetails(String id)
     {
-        return bookStoreRepo.findBookDetails(id).orElseThrow(() -> new BookNotFoundException("Book was not found " + id)); 
+        return ((BookStoreRepo) bookStoreRepo).findBookDetails(id).orElseThrow(() -> new BookNotFoundException("Book was not found " + id)); 
     }
 
+
+
+    public void deleteBookDetails(Long id){
+        ((BookStoreRepo) bookStoreRepo).deleteBookDetailsId(id);
+    }
+
+    /*
 
 
     public void deleteBookDetails(Long id){
@@ -81,37 +115,19 @@ public class BookStoreService
     }
 
 
-
-
-
-/*
-
-    An administrator must be able to create a book with the book ISBN, book 
-    name, book description, price, author, genre, publisher , year published and 
-    copies sold. 
-
-    Must be able retrieve a book’s details by the ISBN 
-
-    An administrator must be able to create an author with first name, last name, biography and publisher 
-
-    Must be able to retrieve a list of books associated with an author
-
-
-*/    
-
-
+    */ 
 
 /*
-    Retrieve List of Books by Genre 
+    -Retrieve List of Books by Genre 
 
-    Retrieve List of Top Sellers (Top 10 books that have sold the most copied) 
+    -Retrieve List of Top Sellers (Top 10 books that have sold the most copied) 
 
-    Retrieve List of Books for a particular rating and higher 
+    -Retrieve List of Books for a particular rating and higher 
 
-    Retrieve List of X Books at a time where X is an integer from a given position in the overall recordset.
+    -Retrieve List of X Books at a time where X is an integer from a given position in the overall recordset.
+
+
 */ 
-
-
     //Retrieve List of Books by Genre 
     public List<BookDetails> getBookByGenre(String genre) {
         return BookStoreRepo.findByGenre(genre).orElseThrow(() -> new RuntimeException(
@@ -124,7 +140,7 @@ public class BookStoreService
     public List<BookDetails> tenMostSold()
     {
 
-        List<BookDetails> allBooks = bookStoreRepo.findAll(Sort.by(Sort.Direction.DESC, "numsold"));
+        List<BookDetails> allBooks = ((JpaRepository<BookDetails, String>) bookStoreRepo).findAll(Sort.by(Sort.Direction.DESC, "numsold"));
         List<BookDetails> subsetBooks = allBooks.subList(0,10);
         return subsetBooks;
     }
@@ -177,5 +193,7 @@ public class BookStoreService
 
         return subSet;
     }
+
+    
 }
 

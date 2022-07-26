@@ -67,6 +67,7 @@
             <artifactId>matchers</artifactId>
             <version>4.3.9</version>
         </dependency>
+		
 		<dependency>
 			<groupId>io.openliberty.features</groupId>
 			<artifactId>beanValidation-2.0</artifactId>
