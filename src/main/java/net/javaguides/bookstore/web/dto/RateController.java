@@ -37,7 +37,7 @@ public class RateController {
         }
     
         @GetMapping
-        public ResponseEntity<List<BookRating>> getAllRatings() {
+        public ResponseEntity<Object> getAllRatings() {
             return ResponseEntity.ok(rateService.getAllRatings());
         }
     

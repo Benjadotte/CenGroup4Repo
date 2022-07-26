@@ -10,6 +10,12 @@ import java.util.List;
 @Repository
 
 public interface RateRepository  extends JpaRepository<BookRating, String>{
+    static void deleteID(String id) {
+    }
+
+    static void insert(BookRating rating) {
+    }
+
     @Query("{'id': ?0}")
     Optional<BookRating> findById(String id);
 

@@ -23,9 +23,9 @@ public class RateService {
  */
 
 
-    public List<BookRating> getAllRatings() {
-        return RateRepository.findAll(); //Need to change this
-    }
+    //public List<BookRating> getAllRatings() {
+        //return RateRepository.findAll(); //Need to change this
+    //}
 
     public void deleteRating (String id) {
         RateRepository.deleteID(id);
@@ -169,6 +169,8 @@ public List<BookRating> getRatingsSortedDes() {
     return null;
 }
 
- 
 
+    public Object getAllRatings() {
+        return null;
+    }
 }
