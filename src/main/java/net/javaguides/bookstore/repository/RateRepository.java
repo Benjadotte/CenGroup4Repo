@@ -33,6 +33,5 @@ public interface RateRepository  extends JpaRepository<BookRating, String>{
         // TODO Auto-generated method stub
         return null;
     }
-
-    //.
+    
 }
