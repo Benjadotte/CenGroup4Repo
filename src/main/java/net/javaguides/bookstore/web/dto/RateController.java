@@ -2,7 +2,6 @@ package net.javaguides.bookstore.web.dto;
 
 import net.javaguides.bookstore.service.RateService;
 import net.javaguides.bookstore.model.BookRating;
-import net.javaguides.bookstore.repository.RateRepository;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping ("/api/bookrating")
@@ -26,6 +24,7 @@ import java.util.Optional;
 
 public class RateController {
         private final RateService rateService;
+        private BookRating bookrating;
 
         public RateController(RateService rateService) {
             this.rateService = rateService;
@@ -33,7 +32,7 @@ public class RateController {
 
         @PostMapping()
         public ResponseEntity addRating(@RequestBody RateService rateService) {
-            rateService.addRating(rating); //rating change
+            rateService.addRating(bookrating); //rating change
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }
     

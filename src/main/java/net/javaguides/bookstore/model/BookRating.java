@@ -2,9 +2,14 @@ package net.javaguides.bookstore.model;
 
 import org.springframework.data.annotation.Id;
 
+//HEAD
 
 import net.javaguides.bookstore.service.RateService;
+import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.stereotype.Indexed;
+//=======
+import net.javaguides.bookstore.service.RateService;
+//>>>>>>> 0378477825508844e3fa30dbb97302e8d74e0805
 
 import java.util.Date;
 import java.util.ArrayList;
@@ -23,11 +28,11 @@ public class BookRating {
 @Id
 private String id;
 
-@Indexed
+
 @Field("userid")
 private String userid;
 
-@Indexed
+
 @Field("bookid")
 private String bookid;
 
