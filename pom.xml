@@ -69,12 +69,6 @@
         </dependency>
 		
 		<dependency>
-			<groupId>io.openliberty.features</groupId>
-			<artifactId>beanValidation-2.0</artifactId>
-			<version>22.0.0.6</version>
-		</dependency>
-
-		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
 			<version>1.9.4</version>
@@ -93,10 +87,25 @@
 			<artifactId>rest-field-filter</artifactId>
 			<version>0.4</version>
 		</dependency>
+        <dependency>
+            <groupId>clj-yield</groupId>
+            <artifactId>clj-yield</artifactId>
+            <version>1.1</version>
+        </dependency>
 		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjweaver</artifactId>
-			<version>1.9.9.1</version>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>4.5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-params</artifactId>
+			<version>5.8.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>5.3.20</version>
 		</dependency>
 	</dependencies>
 
@@ -108,5 +117,12 @@
 			</plugin>
 		</plugins>
 	</build>
+    <repositories>
+        <repository>
+            <id>clojars</id>
+            <name>Clojars</name>
+            <url>https://repo.clojars.org/</url>
+        </repository>
+    </repositories>
 
 </project>

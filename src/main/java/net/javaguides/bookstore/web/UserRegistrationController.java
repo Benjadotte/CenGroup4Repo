@@ -1,41 +1,56 @@
 package net.javaguides.bookstore.web;
 
+
+
+
 import net.javaguides.bookstore.model.User;
 import net.javaguides.bookstore.service.UserService;
-
+import net.javaguides.bookstore.web.dto.UserRegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
 
+@Controller
+@RequestMapping("/registration")
+//@RequestMapping(path = "api/v1/registration")
 
-@RestController
-@RequestMapping("/user")
+public class UserRegistrationController<UserRegistrationDto> {
 
-public class UserRegistrationController {
     @Autowired(required = false)
-    private final UserService userService;
-    public UserRegistrationController(UserService userService) {
-        this.userService = userService;
+    private UserService userService;
+
+    @ModelAttribute("user")
+    public UserRegistrationDto userRegistrationDto() {
+        return userRegistrationDto();
     }
 
-    @GetMapping("/find/{id}")
-    public ResponseEntity<List<User>> getAllUsersById(@PathVariable("id") Long id) {
-        User user = userService.findUserById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @GetMapping
+    public String showRegistrationForm(Model model) {
+        return "registration";
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<User> addUser(@RequestBody User user) {
-        User newUser = userService.addUser(user);
-        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+    @PostMapping
+    public String registerUserAccount(@ModelAttribute("user") @Valid UserRegistrationDto userDto,
+                                      BindingResult result) {
+
+        User existing = userService.findByEmail();
+        if (existing != null) {
+            result.rejectValue("email", null, "There is already an account registered with that email");
+        }
+
+        if (result.hasErrors()) {
+            return "registration";
+        }
+
+        userService.save(userDto());
+        return "redirect:/registration?success";
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<User> updateUser(@RequestBody User user) { ///45 mns
-        User updateUser = userService.updateUser(user);
-        return new ResponseEntity<>(updateUser, HttpStatus.OK);
+    private net.javaguides.bookstore.web.dto.UserRegistrationDto userDto() {
+        return null;
     }
 }
