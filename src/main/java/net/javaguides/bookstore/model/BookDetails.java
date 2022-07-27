@@ -33,6 +33,9 @@ public class BookDetails implements Serializable
     private String bookCode;
     private String description;
 
+    public BookDetails() {
+    }
+
     public void bookDetails() 
     {
         

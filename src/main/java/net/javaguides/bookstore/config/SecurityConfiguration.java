@@ -2,7 +2,7 @@ package net.javaguides.bookstore.config;
 
 
 
-import lombok.AllArgsConstructor;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,7 +14,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 
 @Configuration
-@AllArgsConstructor
+
 @EnableWebSecurity
 public class SecurityConfiguration {
 

@@ -3,11 +3,12 @@ package net.javaguides.bookstore;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @SpringBootApplication(exclude = {UserDetailsServiceAutoConfiguration.class})
 @Configuration
-
+@ComponentScan({"net.javaguides.bookstore"})
 
 	public class BookstoreApplication {
 
