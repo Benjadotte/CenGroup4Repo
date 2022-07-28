@@ -5,7 +5,6 @@ import org.springframework.web.client.RestTemplate;
 
 import net.javaguides.bookstore.model.BookRating;
 import net.javaguides.bookstore.repository.RateRepository;
-import net.javaguides.bookstore.web.dto.RateController;
 
 import java.util.ArrayList;
 import java.util.List;

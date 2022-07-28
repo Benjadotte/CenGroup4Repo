@@ -2,11 +2,9 @@ package net.javaguides.bookstore.web.dto;
 
 
 import net.javaguides.bookstore.constraint.FieldMatch;
-
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-
 @FieldMatch.List({
         @FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match"),
         @FieldMatch(first = "email", second = "confirmEmail", message = "The email fields must match")

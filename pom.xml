@@ -42,12 +42,6 @@
 			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.testcontainers</groupId>
-			<artifactId>mongodb</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
@@ -95,7 +89,7 @@
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
-			<version>4.5.1</version>
+			<version>4.6.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
@@ -106,6 +100,26 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>5.3.20</version>
+		</dependency>
+		<dependency>
+			<groupId>co.payload</groupId>
+			<artifactId>payload</artifactId>
+			<version>0.1.12</version>
+		</dependency>
+		<dependency>
+			<groupId>payload</groupId>
+			<artifactId>payload</artifactId>
+			<version>0.5</version>
+		</dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>4.6.1</version>
+        </dependency>
+		<dependency>
+			<groupId>email-normalisation</groupId>
+			<artifactId>email-normalisation</artifactId>
+			<version>1.0.3</version>
 		</dependency>
 	</dependencies>
 

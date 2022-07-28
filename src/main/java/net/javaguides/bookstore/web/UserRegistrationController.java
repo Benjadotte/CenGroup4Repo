@@ -5,14 +5,13 @@ package net.javaguides.bookstore.web;
 
 import net.javaguides.bookstore.model.User;
 import net.javaguides.bookstore.service.UserService;
-import net.javaguides.bookstore.web.dto.UserRegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+
 
 @Controller
 @RequestMapping("/registration")
@@ -34,7 +33,7 @@ public class UserRegistrationController<UserRegistrationDto> {
     }
 
     @PostMapping
-    public String registerUserAccount(@ModelAttribute("user") @Valid UserRegistrationDto userDto,
+    public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto userDto,
                                       BindingResult result) {
 
         User existing = userService.findByEmail();

@@ -1,6 +1,5 @@
 package net.javaguides.bookstore.constraint;
 
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
