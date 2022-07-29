@@ -1,55 +1,40 @@
 package net.javaguides.bookstore.web;
 
 
-
-
-import net.javaguides.bookstore.model.User;
 import net.javaguides.bookstore.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import net.javaguides.bookstore.web.dto.UserRegistrationDto;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/registration")
-//@RequestMapping(path = "api/v1/registration")
+public class UserRegistrationController {
 
-public class UserRegistrationController<UserRegistrationDto> {
-
-    @Autowired(required = false)
     private UserService userService;
+
+    public UserRegistrationController(UserService userService) {
+        super();
+        this.userService = userService;
+    }
 
     @ModelAttribute("user")
     public UserRegistrationDto userRegistrationDto() {
-        return userRegistrationDto();
+        return new UserRegistrationDto();
     }
 
     @GetMapping
-    public String showRegistrationForm(Model model) {
+    public String showRegistrationForm() {
         return "registration";
     }
 
     @PostMapping
-    public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto userDto,
-                                      BindingResult result) {
+    public String registerUserAccount(@ModelAttribute("user")
+                                      UserRegistrationDto registrationDto) {
 
-        User existing = userService.findByEmail();
-        if (existing != null) {
-            result.rejectValue("email", null, "There is already an account registered with that email");
-        }
-
-        if (result.hasErrors()) {
-            return "registration";
-        }
-
-        userService.save(userDto());
+        userService.save(registrationDto);
         return "redirect:/registration?success";
-    }
-
-    private net.javaguides.bookstore.web.dto.UserRegistrationDto userDto() {
-        return null;
     }
 }

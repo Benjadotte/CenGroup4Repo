@@ -1,42 +1,50 @@
 package net.javaguides.bookstore.model;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
-public class User implements Serializable {
+@Table(name = "user", uniqueConstraints =
+@UniqueConstraint(columnNames = "email"))
+public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    @Column(nullable = false, updatable = false)
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
     private String email;
-    private String phoneNumber;
-    private String homeAddress;
-    private Long creditCardNumber;
 
     private String password;
 
-    private String role;
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id",
+                    referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn
+                    (name = "role_id",
+                            referencedColumnName = "id"))
+    private Collection<Role> roles;
 
-    private String confirmPassword;
+    public User() {
 
-    @Column(nullable = false, updatable = false)
-    private String confirmEmail;
+    }
 
-    public User(){}
+    public User(String firstName, String lastName,
+                String email, String password,
+                Collection<Role> roles) {
 
-    public User(String name, String email, String phoneNumber, String homeAddress, Long creditCardNumber, String password, String role, String confirmPassword, String confirmEmail) {
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.homeAddress = homeAddress;
-        this.creditCardNumber = creditCardNumber;
         this.password = password;
-        this.confirmPassword = confirmPassword;
-        this.confirmEmail = confirmEmail;
-        this.role = role;
+        this.roles = roles;
     }
 
     public Long getId() {
@@ -47,20 +55,20 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public String getRole() {
-        return role;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getName() {
-        return name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -71,30 +79,6 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getHomeAddress() {
-        return homeAddress;
-    }
-
-    public void setHomeAddress(String homeAddress) {
-        this.homeAddress = homeAddress;
-    }
-
-    public Long getCreditCardNumber() {
-        return creditCardNumber;
-    }
-
-    public void setCreditCardNumber(Long creditCardNumber) {
-        this.creditCardNumber = creditCardNumber;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -103,39 +87,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
-
-    public String getConfirmEmail() {
-        return confirmEmail;
-    }
-
-    public void setConfirmEmail(String confirmEmail) {
-        this.confirmEmail = confirmEmail;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", homeAddress='" + homeAddress + '\'' +
-                ", creditCardNumber=" + creditCardNumber +
-                '}';
-    }
-
-    public void setUserCode(String toString) {
-    }
-
-
     public Collection<Role> getRoles() {
-        return null;
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
     }
 }
