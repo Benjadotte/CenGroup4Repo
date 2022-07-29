@@ -1,8 +1,8 @@
 package net.javaguides.bookstore.web.dto;
 
-import com.bookstore.backend.model.BookDetails;
-import com.bookstore.backend.model.Wishlist;
-import com.bookstore.backend.service.WishlistService;
+import net.javaguides.bookstore.model.BookDetails;
+import net.javaguides.bookstore.model.Wishlist;
+import net.javaguides.bookstore.service.WishlistService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
