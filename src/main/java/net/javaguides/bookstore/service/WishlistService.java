@@ -181,6 +181,8 @@ public class WishlistService {
         restTemplate.put(uri, String.class);
 
         RemoveBookFromWishlist(wishlistID, bookID);
+
+        System.out.println("It works?)");
     }
 
 }
