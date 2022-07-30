@@ -65,7 +65,7 @@ public class WishlistService {
     }
 
    
-
+//adds a book to the wishlist
     public void AddBookToWishlist(String wishlistid, String bookid) {
 
        
