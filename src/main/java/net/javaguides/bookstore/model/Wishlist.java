@@ -1,7 +1,6 @@
 package net.javaguides.bookstore.model;
 
 import org.springframework.data.annotation.Id;
-import net.javaguides.bookstore.model.BookDetails;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
