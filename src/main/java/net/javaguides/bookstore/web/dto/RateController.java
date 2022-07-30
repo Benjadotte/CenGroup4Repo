@@ -56,13 +56,13 @@ public class RateController {
         // Additional API functionality
     
         @GetMapping("/byuser/{userid}")
-        public ResponseEntity<List<BookRating>> getRatingsByUser(@PathVariable String userid) {
-            return ResponseEntity.ok(rateService.getRatingsByUser(userid));
+        public ResponseEntity<List<BookRating>> getUserRatings(@PathVariable String userid) {
+            return ResponseEntity.ok(rateService.getUserRatings(userid));
         }
     
         @GetMapping("/bybook/{bookid}")
-        public ResponseEntity<List<BookRating>> getRatingsByBook(@PathVariable String bookid) {
-            return ResponseEntity.ok(rateService.getRatingsByBook(bookid));
+        public ResponseEntity<List<BookRating>> getBookRatings(@PathVariable String bookid) {
+            return ResponseEntity.ok(rateService.getBookRatings(bookid));
         }
     
         @GetMapping("/bybook/sorted/highest/{bookid}")
