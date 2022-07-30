@@ -33,7 +33,7 @@ public class WishlistService {
         }
 
     }
-
+//shows all wishlists
     public List<Wishlist> getAllWishlists(){
         return wishlistRepository.findAll();
     }
@@ -77,7 +77,7 @@ public class WishlistService {
         }
 
         
-
+//shows books is wishlist
         Wishlist savedWishlist = repositoryResults.get();
         ArrayList<String> booksInWishlist = savedWishlist.getBooks();
 
@@ -101,13 +101,13 @@ public class WishlistService {
             }
         }
     }
-
+//removes books from wishlist
     public void RemoveBookFromWishlist(String wishlistid, String bookid) {
 
         
         Optional<Wishlist> repositoryResults = wishlistRepository.findById(wishlistid);
 
-        
+        //incase there is no wishlist with that name
         if (repositoryResults.isEmpty()) {
             throw new RuntimeException(String.format("Cannot find Wishlist with ID %s", wishlistid));
         }
@@ -130,7 +130,7 @@ public class WishlistService {
             wishlistRepository.save(savedWishlist);
         }
     }
-
+//lists the deatils of books in wishlist and moves to cart
     public List<BookDetails> getWishlistContents(String wishlistid) {
 
         
@@ -162,20 +162,20 @@ public class WishlistService {
             return books;
         }
     }
-
+//shows book info
     private BookDetails getBookInfo(String bookID) {
 
         
-        String uri = "http://localhost:8080/api/book/byID/";
+        String uri = "http://localhost:8080/BookStore/";
         uri += bookID;
 
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(uri, BookDetails.class);
     }
-
+//adds book to cart
     public void pushBookToCart(String wishlistID, String bookID, String cartID) {
 
-        String uri = "http://localhost:8080/api/cart/" + cartID + "/addBook/" + bookID;
+        String uri = "http://localhost:8080/BookStore/" + cartID + "/addBook/" + bookID;
 
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.put(uri, String.class);
