@@ -107,7 +107,7 @@ public class WishlistService {
         
         Optional<Wishlist> repositoryResults = wishlistRepository.findById(wishlistid);
 
-        
+        //incase there is no wishlist with that name
         if (repositoryResults.isEmpty()) {
             throw new RuntimeException(String.format("Cannot find Wishlist with ID %s", wishlistid));
         }
