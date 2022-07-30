@@ -44,7 +44,7 @@ public class BookDetails implements Serializable
     //Book criteria: ISBN(Y), book name(Y), book description(Y), price(Y), author(Y), genre(Y), publisher (Y), year published(Y), copies sold(Y). 
     //For Book Browsing and Sorting: Genre(Y)
 
-    public BookDetails(String name, String id, int iSBN, String description, String publisher , String Author , Role.Genre genre , Double price , String yearPublished, Long copiesSold )
+    public BookDetails(String name, String id, int iSBN, String description, String publisher , String Author , Genre genre , Double price , String yearPublished, Long copiesSold )
     {
 
         this.name = name;
