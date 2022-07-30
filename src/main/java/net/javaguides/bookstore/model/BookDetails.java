@@ -13,7 +13,7 @@ public class BookDetails implements Serializable
     private Long id;
     private String name;
 
-    //private int iSBN;
+    //private String iSBN;
     private String publisher;
     private String Author;
 
@@ -68,6 +68,7 @@ public class BookDetails implements Serializable
         this.name = name;
     }
 /*
+private String iSBN;
     public int getiSBN() {
         return iSBN;
     }

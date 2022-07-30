@@ -3,9 +3,7 @@ package net.javaguides.bookstore.service;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import net.javaguides.bookstore.model.AscendedRating;
 import net.javaguides.bookstore.model.BookRating;
-import net.javaguides.bookstore.model.DescendedRating;
 import net.javaguides.bookstore.repository.RateRepository;
 
 import java.util.ArrayList;
@@ -23,10 +21,15 @@ public class RateService {
     
  */
 
+private final RateRepository rateRepository;
+
+public RateService(RateRepository rateRepository) {
+    this.rateRepository = rateRepository;
+}
 
     public List<BookRating> getAllRatings() {
-        return null;
-        // return RateRepository.findAll(); //Need to change this
+       // return null;
+        return rateRepository.findAll(); //Need to change this
     }
 
     public void deleteRating (String id) {
@@ -37,12 +40,12 @@ public class RateService {
 
         // Validates the user
         if (!isUserValid(bookRating.getID())) {
-            throw new RuntimeException(String.format("User ID %s is invalid!", bookRating.getID()));
+            throw new RuntimeException(String.format("User with ID %s is invalid!", bookRating.getID()));
         }
 
         // Validates the bookIDs
         if (!isBookValid(bookRating.getBookid())) {
-            throw new RuntimeException(String.format("Book ID %s is invalid!", bookRating.getBookid()));
+            throw new RuntimeException(String.format("Book with ID %s is invalid!", bookRating.getBookid()));
         }
 
         // Validates the value passed for the rating (1-5 stars)
@@ -80,7 +83,7 @@ public class RateService {
             //Rating exists, input error
             // PUT API should be used to update instead of insert
             else {
-                throw new RuntimeException(String.format("Found existing rating for Book ID %s by User ID %s", bookRating.getBookid()
+                throw new RuntimeException(String.format("Found Existing Rating for Book ID %s by User ID %s", bookRating.getBookid()
                         , bookRating.getID()));
             }
         }
@@ -88,11 +91,11 @@ public class RateService {
 
     public void updateRating (BookRating bookRating) {
         if (!isUserValid(bookRating.getID())) {
-            throw new RuntimeException(String.format("User ID %s is invalid!", bookRating.getID()));
+            throw new RuntimeException(String.format("User with ID %s is invalid!", bookRating.getID()));
         }
 
         if (!isBookValid(bookRating.getBookid())) {
-            throw new RuntimeException(String.format("Book ID %s is invalid!", bookRating.getBookid()));
+            throw new RuntimeException(String.format("Book with ID %s is invalid!", bookRating.getBookid()));
         }
 
         int v = bookRating.getValue();
@@ -132,7 +135,7 @@ public class RateService {
                 saveRate.setValue(bookRating.getValue());
                 saveRate.setComment(bookRating.getComment());
                 
-                //RateRepository.save(saveRate);
+                rateRepository.save(saveRate);
             }
         }
 
@@ -167,21 +170,21 @@ public class RateService {
 public List<BookRating> getUserRatings(String userID) {
 
     if (!isUserValid(userID)) {
-        throw new RuntimeException(String.format("User ID %s is invalid!", userID));
+        throw new RuntimeException(String.format("User with ID %s is invalid!", userID));
     }
 
     return RateRepository.findByUserId(userID).orElseThrow(() -> new RuntimeException(
-            String.format("Cannot find ratings by User ID %s", userID)));
+            String.format("Cannot find Ratings by User %s", userID)));
     }
 
 public List<BookRating> getBookRatings(String bookId) {
 
     if (!isBookValid(bookId)) {
-        throw new RuntimeException(String.format("Book ID %s is invalid!", bookId));
+        throw new RuntimeException(String.format("Book with ID %s is invalid!", bookId));
     }
 
     return RateRepository.findByBookId(bookId).orElseThrow(() -> new RuntimeException(
-            String.format("Cannot find ratings for Book ID %s", bookId)
+            String.format("Cannot find Ratings for Book %s", bookId)
     )
   );
 }
@@ -200,26 +203,26 @@ public float getAverageRating(String bookid) {
 
 public List<BookRating> getRatingsByBookSortedDes(String bookid) {
     List<BookRating> unsortedRatings = getBookRatings(bookid);
-    unsortedRatings.sort(new DescendedRating());
+    //unsortedRatings.sort(new BookRating());
     return unsortedRatings;
 }
 
 public List<BookRating> getRatingsByBookSortedAsc(String bookid) {
     List<BookRating> unsortedRatings = getBookRatings(bookid);
-    unsortedRatings.sort(new AscendedRating());
+    //unsortedRatings.sort(new BookRating());
     return unsortedRatings;
 
 }
 
 public List<BookRating> getRatingsSortedAsc() {
     List<BookRating> unsortedRatings = getAllRatings();
-    unsortedRatings.sort(new AscendedRating());
+    //unsortedRatings.sort(new BookRating());
     return unsortedRatings;
 }
 
 public List<BookRating> getRatingsSortedDes() {
     List<BookRating> unsortedRatings = getAllRatings();
-    unsortedRatings.sort(new DescendedRating());
+    //unsortedRatings.sort(new BookRating());
     return unsortedRatings;
 }
 
