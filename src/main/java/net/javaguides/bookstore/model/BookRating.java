@@ -42,7 +42,7 @@ public BookRating(String userid, String bookid, int value, String comment) {
     this.comment = comment;
 }
 
- public void setId() {
+ public void setId(String userid) {
     this.userid = userid;
 }
 

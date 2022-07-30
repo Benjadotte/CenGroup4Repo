@@ -16,7 +16,7 @@ public class RateService {
 
     
 /*
-    Basic rating functions
+    Basic bookRating functions
     Add book
     
  */
@@ -30,104 +30,104 @@ public class RateService {
         RateRepository.deleteID(id);
     }
 
-    public void addRating(BookRating rating) {
+    public void addRating(BookRating bookRating) {
 
-        // validate the user through a call to the User Controller
-        if (!isUserValid(rating.getID())) {
-            throw new RuntimeException(String.format("User with ID %s is invalid!", rating.getID()));
+        // Validates the user
+        if (!isUserValid(bookRating.getID())) {
+            throw new RuntimeException(String.format("User with ID %s is invalid!", bookRating.getID()));
         }
 
-        // validate the book through a call to the Book Controller
-        if (!isBookValid(rating.getBookid())) {
-            throw new RuntimeException(String.format("Book with ID %s is invalid!", rating.getBookid()));
+        // Validates the bookIDs
+        if (!isBookValid(bookRating.getBookid())) {
+            throw new RuntimeException(String.format("Book with ID %s is invalid!", bookRating.getBookid()));
         }
 
-        // validate the value passed for the rating (1-5 stars)
-        int v = rating.getValue();
+        // Validates the value passed for the rating (1-5 stars)
+        int v = bookRating.getValue();
         if (v > 5 || v < 1) {
             throw new RuntimeException(String.format("Invalid value. Ratings must be between 1-5."));
         }
 
-        // get a list of all ratings in the database by this user
-        Optional<List<BookRating>> repositoryResults = RateRepository.findByUserId(rating.getID());
+        //Gets a list of all the ratings from this user
+        Optional<List<BookRating>> repositoryResults = RateRepository.findByUserId(bookRating.getID());
 
-        // if no ratings already exist for this user, go ahead and add the new rating (user/book were validated earlier)
+        //If no ratings exist, add the rating
         if (repositoryResults.isPresent() == false) {
-            RateRepository.insert(rating); //Insert in repo
+            RateRepository.insert(bookRating); //Insert in repo
         }
 
-        // some ratings do exist by this user
+        //There's some ratings
         else {
 
 
-            // check that there is not already an existing rating by this user for the specified book
+            //Check for existing rating on this specific book
             List<BookRating> queryResultsForUser = repositoryResults.get();
             List<BookRating> queryResultsForUserAndBook = new ArrayList<>();
             for (BookRating r : queryResultsForUser) {
-                if (r.getBookid().equals(rating.getBookid())) {
+                if (r.getBookid().equals(bookRating.getBookid())) {
                     queryResultsForUserAndBook.add(r);
                 }
             }
 
-            // no rating by this user for this book, so insert it
+            //If no rating for this specific book, insert it
             if (queryResultsForUserAndBook.size() == 0) {
-                RateRepository.insert(rating);
+                RateRepository.insert(bookRating);
             }
 
-            // rating for this book by this user already exists, so throw error
+            //Rating exists, input error
             // PUT API should be used to update instead of insert
             else {
-                throw new RuntimeException(String.format("Found Existing Rating for Book ID %s by User ID %s", rating.getBookid()
-                        , rating.getID()));
+                throw new RuntimeException(String.format("Found Existing Rating for Book ID %s by User ID %s", bookRating.getBookid()
+                        , bookRating.getID()));
             }
         }
     }
 
-    public void updateRating (BookRating rating) {
-        if (!isUserValid(BookRating.getID)) {
-            throw new RuntimeException(String.format("User with ID %s is invalid!", rating.getID()));
+    public void updateRating (BookRating bookRating) {
+        if (!isUserValid(bookRating.getID())) {
+            throw new RuntimeException(String.format("User with ID %s is invalid!", bookRating.getID()));
         }
 
-        if (!isBookValid(rating.getBookid())) {
-            throw new RuntimeException(String.format("Book with ID %s is invalid!", rating.getBookid()));
+        if (!isBookValid(bookRating.getBookid())) {
+            throw new RuntimeException(String.format("Book with ID %s is invalid!", bookRating.getBookid()));
         }
 
-        int v = rating.getValue();
+        int v = bookRating.getValue();
         if (v > 5 || v < 1) {
             throw new RuntimeException(String.format("Invalid value. Ratings must be between 1-5."));
         }
 
-        Optional<List<BookRating>> repositoryResults = RateRepository.findByUserId(rating.getID());
+        Optional<List<BookRating>> repositoryResults = RateRepository.findByUserId(bookRating.getID());
         if (repositoryResults.isPresent() == false) {
-            throw new RuntimeException(String.format("Cannot find ratings by user %s",rating.getID()));
+            throw new RuntimeException(String.format("Cannot find ratings by user %s",bookRating.getID()));
         }
 
         else {
             List<BookRating> queryResultsForUser = repositoryResults.get();
             List<BookRating> queryResultsForUserAndBook = new ArrayList<>();
             for (BookRating r : queryResultsForUser) {
-                if (r.getBookid().equals(rating.getBookid())) {
+                if (r.getBookid().equals(bookRating.getBookid())) {
                     queryResultsForUserAndBook.add(r);
                 }
             }
 
             if (queryResultsForUserAndBook.size() == 0) {
-                throw new RuntimeException(String.format("Cannot find rating for book ID %s from user %s", rating.getBookid()
-                        , rating.getID()));
+                throw new RuntimeException(String.format("Cannot find bookRating for book ID %s from user %s", bookRating.getBookid()
+                        , bookRating.getID()));
             }
 
             if (queryResultsForUserAndBook.size() > 1) {
-                throw new RuntimeException(String.format("Duplicate ratings found for book ID %s from user %s", rating.getBookid()
-                        , rating.getID()));
+                throw new RuntimeException(String.format("Duplicate ratings found for book ID %s from user %s", bookRating.getBookid()
+                        , bookRating.getID()));
             }
 
             else {
                 BookRating saveRate = queryResultsForUserAndBook.get(0);
-                saveRate.setId(BookRating.getID());
-                saveRate.setBookid(BookRating.getBookid());
-                saveRate.setDate(BookRating.getDate());
-                saveRate.setValue(BookRating.getValue());
-                saveRate.setComment(BookRating.getComment());
+                saveRate.setId(bookRating.getID());
+                saveRate.setBookid(bookRating.getBookid());
+                saveRate.setDate(bookRating.getDate());
+                saveRate.setValue(bookRating.getValue());
+                saveRate.setComment(bookRating.getComment());
                 
                 RateRepository.save(saveRate);
             }
@@ -136,7 +136,7 @@ public class RateService {
     }
     
     private boolean isUserValid(String userID) {
-        String uri = "";
+        String uri = "http://localhost:8080/BookStore/";
         uri += userID;
 
         RestTemplate restTemplate = new RestTemplate();
@@ -145,7 +145,7 @@ public class RateService {
 
     private boolean isBookValid(String bookID) {
 
-        String uri = "";
+        String uri = "http://localhost:8080/BookStore/";
         uri += bookID;
 
         RestTemplate restTemplate = new RestTemplate();
@@ -154,27 +154,25 @@ public class RateService {
 
 
     /*
-    -Must be able to create a rating for a book by a user on a 5-star scale with a 
+    -Must be able to create a bookRating for a book by a user on a 5-star scale with a 
     datestamp. 
     -Must be able to create a comment for a book by a user with a datestamp 
-    -Must be able to retrieve a list of ratings and comments sorted by highest rating 
-    -Must be able to retrieve the average rating for a book
+    -Must be able to retrieve a list of ratings and comments sorted by highest bookRating 
+    -Must be able to retrieve the average bookRating for a book
  */
 
-public List<BookRating> getRatingsByUser(String userid) {
+public List<BookRating> getRatingsByUser(String userID) {
 
-    // validate the user through a call to the User Controller
-    if (!isUserValid(userid)) {
-        throw new RuntimeException(String.format("User with ID %s is invalid!", userid));
+    if (!isUserValid(userID)) {
+        throw new RuntimeException(String.format("User with ID %s is invalid!", userID));
     }
 
-    return RateRepository.findByUserId(userid).orElseThrow(() -> new RuntimeException(
-            String.format("Cannot find Ratings by User %s", userid)));
+    return RateRepository.findByUserId(userID).orElseThrow(() -> new RuntimeException(
+            String.format("Cannot find Ratings by User %s", userID)));
     }
 
 public List<BookRating> getRatingsByBook(String bookId) {
 
-    // validate the book through a call to the Book Controller
     if (!isBookValid(bookId)) {
         throw new RuntimeException(String.format("Book with ID %s is invalid!", bookId));
     }
@@ -186,7 +184,6 @@ public List<BookRating> getRatingsByBook(String bookId) {
 }
 
 public float getAverageRating(String bookid) {
-    // validation of bookid done in getRatingsByBook method
 
     List<BookRating> allRatingsByBook = getRatingsByBook(bookid);
     long sum = 0;
