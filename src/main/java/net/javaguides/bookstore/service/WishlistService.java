@@ -172,7 +172,7 @@ public class WishlistService {
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(uri, BookDetails.class);
     }
-
+//adds book to cart
     public void pushBookToCart(String wishlistID, String bookID, String cartID) {
 
         String uri = "http://localhost:8080/BookStore/" + cartID + "/addBook/" + bookID;
