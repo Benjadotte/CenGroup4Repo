@@ -120,6 +120,17 @@ public class RateService {
                 throw new RuntimeException(String.format("Duplicate ratings found for book ID %s from user %s", rating.getBookid()
                         , rating.getID()));
             }
+
+            else {
+                BookRating saveRate = queryResultsForUserAndBook.get(0);
+                saveRate.setId(BookRating.getID());
+                saveRate.setBookid(BookRating.getBookid());
+                saveRate.setDate(BookRating.getDate());
+                saveRate.setValue(BookRating.getValue());
+                saveRate.setComment(BookRating.getComment());
+                
+                RateRepository.save(saveRate);
+            }
         }
 
     }
