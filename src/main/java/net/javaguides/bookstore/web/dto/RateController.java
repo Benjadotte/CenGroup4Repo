@@ -30,14 +30,14 @@ public class RateController {
             this.rateService = rateService;
         }
 
-        @PostMapping()
+        @PostMapping
         public ResponseEntity addRating(@RequestBody RateService rateService) {
             rateService.addRating(bookrating); //rating change
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }
     
         @GetMapping
-        public ResponseEntity<Object> getAllRatings() {
+        public ResponseEntity<List<BookRating>> getAllRatings() {
             return ResponseEntity.ok(rateService.getAllRatings());
         }
     
