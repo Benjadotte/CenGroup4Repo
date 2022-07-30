@@ -129,7 +129,7 @@ public class RateService {
                 saveRate.setValue(bookRating.getValue());
                 saveRate.setComment(bookRating.getComment());
                 
-                RateRepository.save(saveRate);
+                //RateRepository.save(saveRate);
             }
         }
 
