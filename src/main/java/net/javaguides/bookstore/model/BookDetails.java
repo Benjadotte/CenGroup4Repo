@@ -26,7 +26,7 @@ public class BookDetails implements Serializable
     private int iSBN;
     private String publisher; 
     private String Author;
-    private Role.Genre genre;
+    private Genre genre;
     private Double price;
     private String yearPublished;
     private Long copiesSold;
@@ -108,11 +108,11 @@ public class BookDetails implements Serializable
         Author = author;
     }
 
-    public Role.Genre getGenre() {
+    public Genre getGenre() {
         return genre;
     }
 
-    public void setGenre(Role.Genre genre) {
+    public void setGenre(Genre genre) {
         this.genre = genre;
     }
 
