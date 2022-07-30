@@ -131,7 +131,7 @@ public class WishlistService {
         }
     }
 
-    public List<Book> getWishlistContents(String wishlistid) {
+    public List<BookDetails> getWishlistContents(String wishlistid) {
 
         
         Optional<Wishlist> repositoryResults = wishlistRepository.findById(wishlistid);
@@ -151,7 +151,7 @@ public class WishlistService {
                 wishlistRepository.save(wishlist);
             }
 
-            ArrayList<Book> books = new ArrayList<>();
+            ArrayList<BookDetails> books = new ArrayList<>();
 
             if (!booksInWishlist.isEmpty()) {
                 for (String c : booksInWishlist) {
@@ -163,14 +163,14 @@ public class WishlistService {
         }
     }
 
-    private Book getBookInfo(String bookID) {
+    private BookDetails getBookInfo(String bookID) {
 
         
         String uri = "http://localhost:8080/api/book/byID/";
         uri += bookID;
 
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(uri, Book.class);
+        return restTemplate.getForObject(uri, BookDetails.class);
     }
 
     public void pushBookToCart(String wishlistID, String bookID, String cartID) {

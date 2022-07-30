@@ -13,9 +13,9 @@ import java.util.List;
 @RequestMapping("/api/wishlist")
 public class WishlistController {
     
-    private final WishlistServices wishlistService;
+    private final WishlistService wishlistService;
 
-    public WishlistController(WishlistServices wishlistservice){
+    public WishlistController(WishlistService wishlistservice){
         this.wishlistService = wishlistservice;
     }
 
@@ -49,7 +49,7 @@ public class WishlistController {
     
 
     @GetMapping("/{wishlistid}")
-    public ResponseEntity<List<Book>> getWishlistContents(@PathVariable String wishlistid){
+    public ResponseEntity<List<BookDetails>> getWishlistContents(@PathVariable String wishlistid){
         return ResponseEntity.ok(wishlistService.getWishlistContents(wishlistid));
     }
 
