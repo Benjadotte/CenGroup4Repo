@@ -10,15 +10,15 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BookStoreRepo extends JpaRepository<BookDetails, String> {
 
+
     void deleteBookDetailsId(Long id);
-
-    Optional<BookDetails> findBookDetails(String id);
-
+ 
+    Optional <BookDetails> findBookDetails(Long id);
+ 
+    @Query("{'id': ?0}")
+    Optional<BookDetails> findById(Long id);
+ 
     @Query("{'genre': ?0}")
-    static
-    Optional<List<BookDetails>> findByGenre(String genre) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-    
-}
+    Optional<List<BookDetails>> findByGenre(String genre);
+ 
+ }

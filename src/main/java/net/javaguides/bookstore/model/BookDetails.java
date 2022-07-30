@@ -1,31 +1,22 @@
 package net.javaguides.bookstore.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
-
-//import javax.annotation.Generated;
-import javax.persistence.Id;
-import javax.persistence.GenerationType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-
-//comment
 @Entity
 public class BookDetails implements Serializable
 {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
-
-
-
-    private String id;
+    private Long id;
     private String name;
-    private int iSBN;
-    private String publisher; 
+
+    //private int iSBN;
+    private String publisher;
     private String Author;
+
     private Genre genre;
     private Double price;
     private String yearPublished;
@@ -33,23 +24,24 @@ public class BookDetails implements Serializable
     private String bookCode;
     private String description;
 
+
     public BookDetails() {
     }
 
-    public void bookDetails() 
+    public void bookDetails()
     {
-        
+
     }
-    
-    //Book criteria: ISBN(Y), book name(Y), book description(Y), price(Y), author(Y), genre(Y), publisher (Y), year published(Y), copies sold(Y). 
+
+    //Book criteria: ISBN(Y), book name(Y), book description(Y), price(Y), author(Y), genre(Y), publisher (Y), year published(Y), copies sold(Y).
     //For Book Browsing and Sorting: Genre(Y)
 
-    public BookDetails(String name, String id, int iSBN, String description, String publisher , String Author , Genre genre , Double price , String yearPublished, Long copiesSold )
+    public BookDetails(String name, Long id, String description, String publisher , String Author, Genre genre, Double price , String yearPublished, Long copiesSold )
     {
 
         this.name = name;
         this.id = id;
-        this.iSBN = iSBN;
+        //this.iSBN = iSBN;
         this.description = description;
         this.publisher = publisher;
         this.Author = Author;
@@ -60,11 +52,11 @@ public class BookDetails implements Serializable
 
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -75,7 +67,7 @@ public class BookDetails implements Serializable
     public void setName(String name) {
         this.name = name;
     }
-
+/*
     public int getiSBN() {
         return iSBN;
     }
@@ -83,7 +75,7 @@ public class BookDetails implements Serializable
     public void setiSBN(int iSBN) {
         this.iSBN = iSBN;
     }
-
+*/
     public String getDescription() {
         return description;
     }
@@ -131,21 +123,13 @@ public class BookDetails implements Serializable
     public void setYearPublished(String yearPublished) {
         this.yearPublished = yearPublished;
     }
-        
+
     public Long getCopiesSold() {
         return copiesSold;
     }
 
     public void setCopiesSold(Long copiesSold) {
         this.copiesSold = copiesSold;
-    }
-
-    public int getISBN() {
-        return this.iSBN;
-    }
-
-    public void setISBN(int iSBN) {
-        this.iSBN = iSBN;
     }
 
     public String getBookCode() {
@@ -160,20 +144,18 @@ public class BookDetails implements Serializable
     @Override
     public String toString()
     {
-        return         
-        "Book Details:" + '\'' +
-        "Book Name: " + name + '\'' +
-        "ID: " +id + '\'' +
-        "ISBN: " + iSBN + '\'' +
-        "Description: " + description + '\'' +
-        "Publisher: " + publisher + '\'' +
-        "Author: " + Author + '\'' +
-        "Genre: " + genre + '\'' +
-        "Price: " + price + '\'' +
-        "Year Published: " + yearPublished + '\'' +
-        "Copies Sold: " + copiesSold; 
+        return
+                "Book Details:" + '\'' +
+                        "Book Name: " + name + '\'' +
+                        "ID: " +id + '\'' +
+                        "ISBN: " + "iSBN(Placeholder)" + '\'' +
+                        "Description: " + description + '\'' +
+                        "Publisher: " + publisher + '\'' +
+                        "Author: " + Author + '\'' +
+                        "Genre: " + genre + '\'' +
+                        "Price: " + price + '\'' +
+                        "Year Published: " + yearPublished + '\'' +
+                        "Copies Sold: " + copiesSold;
     }
 
-    
 }
-
