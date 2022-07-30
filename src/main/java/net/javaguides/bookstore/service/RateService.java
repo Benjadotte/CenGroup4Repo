@@ -84,6 +84,43 @@ public class RateService {
     }
 
     public void updateRating (BookRating rating) {
+        if (!isUserValid(BookRating.getID)) {
+            throw new RuntimeException(String.format("User with ID %s is invalid!", rating.getID()));
+        }
+
+        if (!isBookValid(rating.getBookid())) {
+            throw new RuntimeException(String.format("Book with ID %s is invalid!", rating.getBookid()));
+        }
+
+        int v = rating.getValue();
+        if (v > 5 || v < 1) {
+            throw new RuntimeException(String.format("Invalid value. Ratings must be between 1-5."));
+        }
+
+        Optional<List<BookRating>> repositoryResults = RateRepository.findByUserId(rating.getID());
+        if (repositoryResults.isPresent() == false) {
+            throw new RuntimeException(String.format("Cannot find ratings by user %s",rating.getID()));
+        }
+
+        else {
+            List<BookRating> queryResultsForUser = repositoryResults.get();
+            List<BookRating> queryResultsForUserAndBook = new ArrayList<>();
+            for (BookRating r : queryResultsForUser) {
+                if (r.getBookid().equals(rating.getBookid())) {
+                    queryResultsForUserAndBook.add(r);
+                }
+            }
+
+            if (queryResultsForUserAndBook.size() == 0) {
+                throw new RuntimeException(String.format("Cannot find rating for book ID %s from user %s", rating.getBookid()
+                        , rating.getID()));
+            }
+
+            if (queryResultsForUserAndBook.size() > 1) {
+                throw new RuntimeException(String.format("Duplicate ratings found for book ID %s from user %s", rating.getBookid()
+                        , rating.getID()));
+            }
+        }
 
     }
     
@@ -113,18 +150,16 @@ public class RateService {
     -Must be able to retrieve the average rating for a book
  */
 
-public List<BookRating> getRatingsByUser(String userId) {
+public List<BookRating> getRatingsByUser(String userid) {
 
     // validate the user through a call to the User Controller
-    if (!isUserValid(userId)) {
-        throw new RuntimeException(String.format("User with ID %s is invalid!", userId));
+    if (!isUserValid(userid)) {
+        throw new RuntimeException(String.format("User with ID %s is invalid!", userid));
     }
 
-    return RateRepository.findByUserId(userId).orElseThrow(() -> new RuntimeException(
-            String.format("Cannot find Ratings by User %s", userId)
-    )
-  );
-}
+    return RateRepository.findByUserId(userid).orElseThrow(() -> new RuntimeException(
+            String.format("Cannot find Ratings by User %s", userid)));
+    }
 
 public List<BookRating> getRatingsByBook(String bookId) {
 
@@ -157,6 +192,8 @@ public List<BookRating> getRatingsByBookSortedDes(String bookid) {
 }
 
 public List<BookRating> getRatingsByBookSortedAsc(String bookid) {
+    List<BookRating> unsortedRatings = getRatingsByBook(bookid);
+
     return null;
 }
 
