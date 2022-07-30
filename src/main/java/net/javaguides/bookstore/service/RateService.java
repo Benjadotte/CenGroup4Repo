@@ -22,9 +22,10 @@ public class RateService {
  */
 
 
-    //public List<BookRating> getAllRatings() {
-        //return RateRepository.findAll(); //Need to change this
-    //}
+    public List<BookRating> getAllRatings() {
+        return null;
+        // return RateRepository.findAll(); //Need to change this
+    }
 
     public void deleteRating (String id) {
         RateRepository.deleteID(id);
@@ -161,7 +162,7 @@ public class RateService {
     -Must be able to retrieve the average bookRating for a book
  */
 
-public List<BookRating> getRatingsByUser(String userID) {
+public List<BookRating> getUserRatings(String userID) {
 
     if (!isUserValid(userID)) {
         throw new RuntimeException(String.format("User with ID %s is invalid!", userID));
@@ -171,7 +172,7 @@ public List<BookRating> getRatingsByUser(String userID) {
             String.format("Cannot find Ratings by User %s", userID)));
     }
 
-public List<BookRating> getRatingsByBook(String bookId) {
+public List<BookRating> getBookRatings(String bookId) {
 
     if (!isBookValid(bookId)) {
         throw new RuntimeException(String.format("Book with ID %s is invalid!", bookId));
@@ -185,7 +186,7 @@ public List<BookRating> getRatingsByBook(String bookId) {
 
 public float getAverageRating(String bookid) {
 
-    List<BookRating> allRatingsByBook = getRatingsByBook(bookid);
+    List<BookRating> allRatingsByBook = getBookRatings(bookid);
     long sum = 0;
 
     for (BookRating r : allRatingsByBook) {
@@ -196,25 +197,28 @@ public float getAverageRating(String bookid) {
 }
 
 public List<BookRating> getRatingsByBookSortedDes(String bookid) {
-    return null;
+    List<BookRating> unsortedRatings = getBookRatings(bookid);
+    //unsortedRatings.sort(new BookRating());
+    return unsortedRatings;
 }
 
 public List<BookRating> getRatingsByBookSortedAsc(String bookid) {
-    List<BookRating> unsortedRatings = getRatingsByBook(bookid);
+    List<BookRating> unsortedRatings = getBookRatings(bookid);
+    //unsortedRatings.sort(new BookRating());
+    return unsortedRatings;
 
-    return null;
 }
 
 public List<BookRating> getRatingsSortedAsc() {
-    return null;
+    List<BookRating> unsortedRatings = getAllRatings();
+    //unsortedRatings.sort(new BookRating());
+    return unsortedRatings;
 }
 
 public List<BookRating> getRatingsSortedDes() {
-    return null;
+    List<BookRating> unsortedRatings = getAllRatings();
+    //unsortedRatings.sort(new BookRating());
+    return unsortedRatings;
 }
 
-
-    public Object getAllRatings() {
-        return null;
-    }
 }

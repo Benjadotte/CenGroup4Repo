@@ -3,6 +3,7 @@ package net.javaguides.bookstore.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 
 
 
@@ -82,6 +83,22 @@ public void setValue(int value) {
     this.value = value;
 }
 
+public class AscendedValueRating implements Comparator<BookRating>{
+    @Override
+    public int compare(BookRating r1, BookRating r2) {
+        // TODO Auto-generated method stub
+        return r1.getValue() - r2.getValue();
+    }
 
+}
+
+public class DescendedValueRating implements Comparator<BookRating>{
+    @Override
+    public int compare(BookRating r1, BookRating r2) {
+        // TODO Auto-generated method stub
+        return r2.getValue() - r1.getValue();
+    }
+
+}
     
 }
