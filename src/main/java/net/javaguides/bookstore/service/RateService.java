@@ -3,7 +3,9 @@ package net.javaguides.bookstore.service;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import net.javaguides.bookstore.model.AscendedRating;
 import net.javaguides.bookstore.model.BookRating;
+import net.javaguides.bookstore.model.DescendedRating;
 import net.javaguides.bookstore.repository.RateRepository;
 
 import java.util.ArrayList;
@@ -203,26 +205,26 @@ public float getAverageRating(String bookid) {
 
 public List<BookRating> getRatingsByBookSortedDes(String bookid) {
     List<BookRating> unsortedRatings = getBookRatings(bookid);
-    //unsortedRatings.sort(new BookRating());
+    unsortedRatings.sort(new DescendedRating());
     return unsortedRatings;
 }
 
 public List<BookRating> getRatingsByBookSortedAsc(String bookid) {
     List<BookRating> unsortedRatings = getBookRatings(bookid);
-    //unsortedRatings.sort(new BookRating());
+    unsortedRatings.sort(new AscendedRating());
     return unsortedRatings;
 
 }
 
 public List<BookRating> getRatingsSortedAsc() {
     List<BookRating> unsortedRatings = getAllRatings();
-    //unsortedRatings.sort(new BookRating());
+    unsortedRatings.sort(new AscendedRating());
     return unsortedRatings;
 }
 
 public List<BookRating> getRatingsSortedDes() {
     List<BookRating> unsortedRatings = getAllRatings();
-    //unsortedRatings.sort(new BookRating());
+    unsortedRatings.sort(new DescendedRating());
     return unsortedRatings;
 }
 
