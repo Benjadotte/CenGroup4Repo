@@ -182,7 +182,7 @@ public class WishlistService {
 
         RemoveBookFromWishlist(wishlistID, bookID);
 
-        System.out.println("It works?)");
+       
     }
 
 }
